@@ -1,4 +1,4 @@
-//$fn = 60;
+$fn = 60;
 
 base_support_length = 5;
 base_width  = 50;
@@ -128,7 +128,7 @@ module camera_mount()
 //            cylinder(d = 6, h = 4);
             
             // right hinge base (with servo arm)
-            translate([camera_mount_width - 4, camera_mount_length / 2 - 3, 0])
+            translate([camera_mount_width - 4, camera_mount_length / 2 - 3 - 1, 0])
 //            rotate([0, 90, 0])
             cube([4, 6, 22]);
 //            translate([camera_mount_width - 4, camera_mount_length / 2, 0])
@@ -138,19 +138,19 @@ module camera_mount()
         union()
         {
             // left hinge hole
-            translate([0, camera_mount_length / 2, camera_mount_thickness / 2])
+            translate([0, camera_mount_length / 2 - 1, camera_mount_thickness / 2])
             rotate([0, 90, 0])
             cylinder(d = 3, h = 4);
             
             // right hinge hole
-            translate([camera_mount_width - 4, camera_mount_length / 2, camera_mount_thickness / 2])
+            translate([camera_mount_width - 4, camera_mount_length / 2 - 1, camera_mount_thickness / 2])
             rotate([0, 90, 0])
             cylinder(d = 3, h = 4);
             
             // servo arm holes
             for( z_offset = [20, 18, 16, 14, 12, 10, 8] )
             {
-                translate([camera_mount_width - 4, camera_mount_length / 2, hinge_z_offset + z_offset])
+                translate([camera_mount_width - 4, camera_mount_length / 2 + 4, hinge_z_offset + z_offset])
                 rotate([0, 90, 0])
                 cylinder(d = 1, h = 10);
             }
@@ -160,18 +160,18 @@ module camera_mount()
             cube([camera_indentation_width, camera_indentation_length, camera_indentation_thickness]);
             
             // camera holes
-            translate([camera_mount_width / 2, camera_mount_length / 2, 0])
+            translate([camera_mount_width / 2, camera_mount_length / 2 + 2, 0])
             rpi_camera_holes();
         }
     }
 }
 
 y_offset = - 3;
-//
+
 //translate([- base_width / 2, y_offset, - base_thickness])
 //base();
 //
 ////translate([- camera_mount_width / 2, base_length/2, - camera_mount_thickness])
-//translate([- camera_mount_width / 2, base_support_length + y_offset, - camera_mount_thickness])
+//translate([- camera_mount_width / 2, base_support_length + y_offset + 1, - camera_mount_thickness])
 //////translate([- camera_mount_width / 2, camera_mount_length / 2 + 25, 0])
 //camera_mount();

@@ -47,6 +47,6 @@ module body()
 
 body();
 
-translate([- camera_mount_width / 2, base_support_length + y_offset, -base_thickness])
+translate([- camera_mount_width / 2, base_support_length + y_offset + 1, -base_thickness])
 //translate([- camera_mount_width / 2, camera_mount_length / 2 + 25, 0])
 camera_mount();
