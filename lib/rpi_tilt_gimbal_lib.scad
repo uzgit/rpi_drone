@@ -4,7 +4,7 @@ include <micro_servo.scad>
 // for connecting to the drone
 y_offset = -3;
 
-$fn = 20;
+$fn = 60;
 
 width = 38;
 length = 40;
@@ -60,7 +60,7 @@ module tilt_gimbal_base()
                 cylinder(d = 5.5, h = right_arm_width);
                 
                 // servo void
-                translate([right_arm_x_offset, base_tilt_axis_y_offset, thickness/2])
+                translate([right_arm_x_offset - 1, base_tilt_axis_y_offset, thickness/2])
                 rotate([0, -90, 0])
                 micro_servo_void();
             }
@@ -105,5 +105,5 @@ module tilt_gimbal_camera_mount()
     }
 }
 
-tilt_gimbal_base();
-tilt_gimbal_camera_mount();
+//tilt_gimbal_base();
+//tilt_gimbal_camera_mount();

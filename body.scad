@@ -1,7 +1,7 @@
 include <lib/rpi.scad>
 include <lib/rpi_tilt_gimbal_lib.scad>
 
-$fn = 10;
+$fn = 60;
 
 module stand()
 {
@@ -106,6 +106,8 @@ module body()
             
             translate([0, -178, 0])
             rear_speed_controller_mount();
+            
+            tilt_gimbal_base();
         }
         union()
         {
@@ -123,6 +125,8 @@ module body()
 
 body();
 
-translate([- camera_mount_width / 2, base_support_length + y_offset + 1, -base_thickness])
-//translate([- camera_mount_width / 2, camera_mount_length / 2 + 25, 0])
-camera_mount();
+//tilt_gimbal_camera_mount();
+
+//            translate([- camera_mount_width / 2, base_support_length + y_offset + 1, -base_thickness])
+////translate([- camera_mount_width / 2, camera_mount_length / 2 + 25, 0])
+//            camera_mount();
