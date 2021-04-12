@@ -1,177 +1,109 @@
-$fn = 60;
+include <rpi.scad>
+include <micro_servo.scad>
 
-base_support_length = 5;
-base_width  = 50;
-base_length = 30;
-base_thickness = 6;
+// for connecting to the drone
+y_offset = -3;
+
+$fn = 20;
+
+width = 38;
+length = 40;
+thickness = 15;
+
+support_length = 5;
+left_arm_width = 8;
+right_arm_width = 15;
 spacing = 0.5;
+rear_spacing = 2;
 
-hinge_z_offset = 0;
+base_translation_width = (width / 2) + left_arm_width + spacing;
+base_tilt_axis_y_offset = support_length + rear_spacing + (length / 2);
+mount_tilt_axis_y_offset = length / 2;
+right_arm_x_offset = (width / 2) + spacing;
 
-camera_mount_width = 38;
-camera_mount_length = 40;
-camera_mount_thickness = base_thickness;
+camera_mount_brim = 3; //mm
+camera_mount_thickness = 3;
 
-camera_indentation_width = 30;
-camera_indentation_length = 36;
-camera_indentation_thickness = 3;
-
-camera_hole_center_x = 0;
-camera_hole_center_y = 4;
-thickness = camera_mount_thickness;
-
-servo_height = 12.5;
-servo_length = 22.5;
-servo_hole_height = 5.5;
-servo_hole_diameter = 1.5;
-servo_pillar_width = 5;
-distance_from_mount_to_arm = 16;
-
-wall_thickness = 1;
-
-module rpi_camera_holes()
+module tilt_gimbal_base()
 {
-    screw_head_depth = 2;
-    screw_head_radius = 4;
-    
-    translate([0, 0, -wall_thickness + 1])
+    translate([0, -support_length, -thickness])
     union()
     {
-        for ( y_offset = [-6.75, 6.25] )
+        // base support
+        translate([-base_translation_width, 0, 0])
+        cube([width + left_arm_width + right_arm_width + (2 * spacing), support_length, thickness]);
+        
+        // left arm
+        difference()
         {
-            for ( x_offset = [-10.5, 10.5] )
+            translate([-base_translation_width, support_length, 0])
+            cube([left_arm_width, length + rear_spacing, thickness]);
+            
+            translate([-base_translation_width, base_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d = 3, h = left_arm_width);
+        }
+        
+        // right arm with servo mount
+        difference()
+        {
+            union()
             {
-                // screw hole
-                translate([camera_hole_center_x + x_offset, camera_hole_center_y+ y_offset, -10])
-                cylinder(h=20, r=1.25);
-                
-                // screw head cone
-                translate([camera_hole_center_x + x_offset, camera_hole_center_y+ y_offset, 0])
-                rotate([0, 0, 0])
-                rotate_extrude()
-                {
-                    translate([0, 0, 0]) polygon(points=[[0,0],[screw_head_radius, 0],[0,screw_head_depth]], paths=[[0,1,2]]);
-                }
+                translate([right_arm_x_offset, support_length, 0])
+                cube([right_arm_width, length + rear_spacing, thickness]);
             }
-        }
-    }
-    
-    translate([camera_hole_center_x, camera_hole_center_y - 6.75, -wall_thickness])cube(size = [9.5, 9.5, 9.5], center = true);
-}
-
-module servo_mount()
-{
-    difference()
-    {
-        union()
-        {
-            cube([4, servo_pillar_width, servo_height]);
-            translate([0, servo_length + servo_pillar_width, 0])
-            cube([4, servo_pillar_width, servo_height]);
-        }
-        union()
-        {
-            translate([0, servo_pillar_width / 2, servo_hole_height])
-            rotate([0, 90, 0])
-            cylinder( d = servo_hole_diameter, h = 4);
-            
-            translate([0, servo_length + servo_pillar_width, 0])
-            translate([0, servo_pillar_width / 2, servo_hole_height])
-            rotate([0, 90, 0])
-            cylinder( d = servo_hole_diameter, h = 4);
-        }
-    }
-}
-
-module base()
-{
-    difference()
-    {
-        union()
-        {
-            // base plate
-            translate([0, 0, 0])
-            cube([base_width, base_length - base_support_length, base_thickness]);
-            
-            // hinge cylinder
-            translate([0, base_length - base_support_length, base_thickness / 2])
-            rotate([0, 90, 0])
-            cylinder(d = 6, h = base_width);
-            
-        }
-        union()
-        {
-            // hinge cylinder hole
-            translate([0, base_length - base_support_length, base_thickness / 2])
-            rotate([0, 90, 0])
-            cylinder(d = 3, h = 70);
-            
-//            translate([base_width / 2 - camera_mount_width / 2 - spacing, camera_mount_length / 2 - spacing, -5])
-            translate([base_width / 2 - camera_mount_width / 2 - spacing, base_support_length - spacing*3, 0])
-            cube([camera_mount_width + spacing*2, camera_mount_length + spacing, base_thickness]);
-        }
-    }
-}
-
-module camera_mount()
-{
-    difference()
-    {
-        union()
-        {
-            translate([0, 0, 0])
-            cube([camera_mount_width, camera_mount_length, camera_mount_thickness]);
-            
-            // left hinge base
-//            translate([0, camera_mount_length / 2, camera_mount_thickness / 2])
-//            rotate([0, 90, 0])
-//            cylinder(d = 6, h = 4);
-            
-            // right hinge base (with servo arm)
-            translate([camera_mount_width - 4, camera_mount_length / 2 - 3 - 1, 0])
-//            rotate([0, 90, 0])
-            cube([4, 6, 22]);
-//            translate([camera_mount_width - 4, camera_mount_length / 2, 0])
-//            rotate([0, 90, 0])
-//            cylinder(d = 6, h = 4);
-        }
-        union()
-        {
-            // left hinge hole
-            translate([0, camera_mount_length / 2 - 1, camera_mount_thickness / 2])
-            rotate([0, 90, 0])
-            cylinder(d = 3, h = 4);
-            
-            // right hinge hole
-            translate([camera_mount_width - 4, camera_mount_length / 2 - 1, camera_mount_thickness / 2])
-            rotate([0, 90, 0])
-            cylinder(d = 3, h = 4);
-            
-            // servo arm holes
-            for( z_offset = [20, 18, 16, 14, 12, 10, 8] )
+            union()
             {
-                translate([camera_mount_width - 4, camera_mount_length / 2 + 4, hinge_z_offset + z_offset])
+                // axis non-contact hole
+                translate([right_arm_x_offset, base_tilt_axis_y_offset, thickness / 2])
                 rotate([0, 90, 0])
-                cylinder(d = 1, h = 10);
+                cylinder(d = 5.5, h = right_arm_width);
+                
+                // servo void
+                translate([right_arm_x_offset, base_tilt_axis_y_offset, thickness/2])
+                rotate([0, -90, 0])
+                micro_servo_void();
             }
+        }
+        
+
+    }
+}
+
+module tilt_gimbal_camera_mount()
+{
+    translate([-width/2, rear_spacing, -thickness])
+    difference()
+    {
+        union()
+        {
+            translate([0, 0, 0])
+            cube([width, length, thickness]);
             
-            // camera thickness indentation
-            translate([(camera_mount_width - camera_indentation_width) / 2, 0, camera_indentation_thickness])
-            cube([camera_indentation_width, camera_indentation_length, camera_indentation_thickness]);
+
+        }
+        union()
+        {
+            // indentation
+            translate([camera_mount_brim, 0, camera_mount_thickness])
+            cube([width - (2 * camera_mount_brim), length - camera_mount_brim, thickness - camera_mount_thickness]);
             
-            // camera holes
-            translate([camera_mount_width / 2, camera_mount_length / 2 + 2, 0])
-            rpi_camera_holes();
+            // camera mounting holes
+            translate([width / 2, mount_tilt_axis_y_offset, 0])
+            rpi_camera_holes(thickness = camera_mount_thickness);
+            
+            // left axis hole
+            translate([0, mount_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d=3, h=camera_mount_brim);
+            
+            // right axis hole with servo contact
+            translate([width - camera_mount_brim, mount_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d=4.75, h=camera_mount_brim);
         }
     }
 }
 
-y_offset = - 3;
-
-//translate([- base_width / 2, y_offset, - base_thickness])
-//base();
-//
-////translate([- camera_mount_width / 2, base_length/2, - camera_mount_thickness])
-//translate([- camera_mount_width / 2, base_support_length + y_offset + 1, - camera_mount_thickness])
-//////translate([- camera_mount_width / 2, camera_mount_length / 2 + 25, 0])
-//camera_mount();
+tilt_gimbal_base();
+tilt_gimbal_camera_mount();

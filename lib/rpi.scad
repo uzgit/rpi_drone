@@ -24,3 +24,60 @@ module raspberry_pi_holes(thickness = 3, screw_hole_diameter = 3)
         }
     }
 }
+
+
+// camera hole is centered at (0, 0, 0)
+//camera_hole_center_x = 0;
+//camera_hole_center_y = 6.7;
+//module rpi_camera_holes(thickness = 2)
+//{
+//    wall_thickness = thickness;
+//    
+//    screw_head_depth = 2;
+//    screw_head_radius = 4;
+//    
+//    translate([0, 0, -wall_thickness + 1])
+//    union()
+//    {
+//        for ( y_offset = [-6.75, 6.25] )
+//        {
+//            for ( x_offset = [-10.5, 10.5] )
+//            {
+//                // screw hole
+//                translate([camera_hole_center_x + x_offset, camera_hole_center_y+ y_offset, -10])
+//                cylinder(h=20, r=1.25);
+//                
+//                // screw head cone
+//                translate([camera_hole_center_x + x_offset, camera_hole_center_y+ y_offset, 0])
+//                rotate([0, 0, 0])
+//                rotate_extrude()
+//                {
+//                    translate([0, 0, 0]) polygon(points=[[0,0],[screw_head_radius, 0],[0,screw_head_depth]], paths=[[0,1,2]]);
+//                }
+//            }
+//        }
+//    }
+//    
+//    translate([camera_hole_center_x, camera_hole_center_y - 6.75, -wall_thickness])cube(size = [9.5, 9.5, 9.5], center = true);
+//}
+
+// lens center is at (0, 0, 0)
+module rpi_camera_holes(thickness = 2, screw_hole_diameter = 2.5)
+{
+    lens_side_length = 9.5;
+    
+    union()
+    {
+        for ( y_offset = [0, 13] )
+        {
+            for ( x_offset = [-10.5, 10.5] )
+            {
+                translate([x_offset, y_offset, 0])
+                cylinder(d=screw_hole_diameter, h=thickness);
+            }
+        }
+        
+        translate([-lens_side_length / 2, -lens_side_length / 2, 0])
+        cube([9.5, 9.5, thickness]);
+    }
+}
