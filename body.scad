@@ -68,17 +68,37 @@ module power_distribution_board_holes(thickness = 100, screw_hole_diameter = 1.5
 
 module leg_holes(thickness = 20)
 {
-    base_y_offset = -3;
+    clearance = 10;
+    
+    base_y_offset = -4.5;
     for( x_offset = [-35, 35] )
     {
         for( y_offset = [0, -159] )
         {
+            // screw hole
             translate([x_offset, base_y_offset + y_offset, -thickness])
             cylinder(d=4, h=thickness);
             
+            // screw head cone
             translate([x_offset, base_y_offset + y_offset, 0])
             rotate([0, 180, 0])
             base_plate_screw_head_cone(screw_head_radius = 4);
+        }
+    }
+}
+
+module leg_hole_clearance(thickness = 12)
+{
+    clearance = 10;
+    
+    base_y_offset = -4.5;
+    for( x_offset = [-35, 35] )
+    {
+        for( y_offset = [0, -159] )
+        {
+            // clearance
+            translate([x_offset, base_y_offset + y_offset, -thickness - clearance])
+            cylinder(d=9, h=clearance);
         }
     }
 }
@@ -112,6 +132,7 @@ module body()
         union()
         {
             leg_holes();
+            leg_hole_clearance();
             
             translate([28, -110, 0])
             rotate([0, 0, 90])
