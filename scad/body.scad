@@ -19,12 +19,14 @@ module rear_speed_controller_mount()
     {
         union()
         {
-            translate([-width/2, 0, -height])
+            translate([width/2, 0, -height])
+            rotate([0, 0, 180])
             cube([width, length, height]);
         }
         union()
         {
-            translate([-width/2, 4, -height])
+            translate([width/2, 0, -height])
+            rotate([0, 0, 180])
             cube([width, length-4, height - 4]);
         }
     }
@@ -36,7 +38,7 @@ speed_controller_mount_y_offset = -85;
 module speed_controller_mount()
 {
     length = 20;
-    width = 10;
+    width = 11.5;
     height = 12;
     
     difference()
@@ -54,7 +56,7 @@ module speed_controller_mount()
     }
 }
 
-module power_distribution_board_holes(thickness = 100, screw_hole_diameter = 1.5)
+module power_distribution_board_holes(thickness = 100, screw_hole_diameter = 1.75)
 {
     for( x_offset = [-15, 15] )
     {
@@ -77,7 +79,7 @@ module leg_holes(thickness = 20)
         {
             // screw hole
             translate([x_offset, base_y_offset + y_offset, -thickness])
-            cylinder(d=4, h=thickness);
+            cylinder(d=3.5, h=thickness);
             
             // screw head cone
             translate([x_offset, base_y_offset + y_offset, 0])
@@ -98,7 +100,7 @@ module leg_hole_clearance(thickness = 12)
         {
             // clearance
             translate([x_offset, base_y_offset + y_offset, -thickness - clearance])
-            cylinder(d=9, h=clearance);
+            cylinder(d=7, h=clearance);
         }
     }
 }
@@ -114,9 +116,6 @@ module body()
             scale([8, 8, 8])
             import("../Raspberry_Pi_Drone_/files/NIACAM2.body.stl");
             
-            translate([- base_width / 2, y_offset, -base_thickness])
-            base();
-            
             translate([speed_controller_mount_x_offset, speed_controller_mount_y_offset, 0])
             speed_controller_mount();
             
@@ -124,7 +123,7 @@ module body()
             rotate([0, 0, 180])
             speed_controller_mount();
             
-            translate([0, -178, 0])
+            translate([0, -168, 0])
             rear_speed_controller_mount();
             
             tilt_gimbal_base();
@@ -136,7 +135,7 @@ module body()
             
             translate([28, -110, 0])
             rotate([0, 0, 90])
-            raspberry_pi_holes(thickness = 12, screw_hole_diameter = 4);
+            raspberry_pi_holes(thickness = 12, screw_hole_diameter = 3.5);
             
             translate([0, -143.5, 0])
             power_distribution_board_holes();
