@@ -1,5 +1,5 @@
-include <lib/rpi.scad>
-include <lib/rpi_tilt_gimbal_lib.scad>
+include <../lib/rpi.scad>
+include <../lib/rpi_tilt_gimbal_lib.scad>
 
 $fn = 60;
 
@@ -112,7 +112,7 @@ module body()
             translate([40, 0, 0])
             rotate([-90, 0, 90])
             scale([8, 8, 8])
-            import("./Raspberry_Pi_Drone_/files/NIACAM2.body.stl");
+            import("../Raspberry_Pi_Drone_/files/NIACAM2.body.stl");
             
             translate([- base_width / 2, y_offset, -base_thickness])
             base();
