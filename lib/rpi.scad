@@ -25,6 +25,60 @@ module raspberry_pi_holes(thickness = 3, screw_hole_diameter = 3)
     }
 }
 
+module raspberry_pi_holes_only(thickness = 3, screw_hole_diameter = 3)
+{
+//    z_offset = -thickness / 2.0;
+    z_offset = -thickness;
+    for ( x_offset = [3.5, 61.5] )
+    {
+        for ( y_offset = [3.5, 52.5] )
+        {
+            union()
+            {
+                translate([x_offset, y_offset, z_offset]) cylinder(d=screw_hole_diameter, h=thickness);
+            }
+        }
+    }
+}
+
+module raspberry_pi_holes_centered(thickness = 3, screw_hole_diameter = 3)
+{
+    translate([-49 / 2, -58 / 2, 0])
+    union()
+    {
+        z_offset = -thickness;
+        for ( x_offset = [0, 49] )
+        {
+            for ( y_offset = [0, 58] )
+            {
+                union()
+                {
+                    translate([x_offset, y_offset, z_offset]) cylinder(d=screw_hole_diameter, h=thickness);
+                }
+            }
+        }
+    }
+}
+
+module raspberry_pi_standoffs(standoff_height = 10, standoff_diameter = 5, screw_hole_diameter = 3)
+{
+    translate([-49 / 2, -58 / 2, -standoff_height])
+    union()
+    {
+        for ( x_offset = [0, 49] )
+        {
+            for ( y_offset = [0, 58] )
+            {
+                translate([x_offset, y_offset, 0])
+                difference()
+                {
+                    cylinder(d=standoff_diameter, h=standoff_height);
+                    cylinder(d=screw_hole_diameter, h=standoff_height);
+                }
+            }
+        }
+    }
+}
 
 // camera hole is centered at (0, 0, 0)
 //camera_hole_center_x = 0;
