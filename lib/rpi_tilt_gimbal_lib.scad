@@ -1,5 +1,6 @@
 include <rpi.scad>
 include <micro_servo.scad>
+include <imx219.scad>
 
 // for connecting to the drone
 y_offset = -3;
@@ -91,6 +92,41 @@ module tilt_gimbal_camera_mount()
             // camera mounting holes
             translate([width / 2, mount_tilt_axis_y_offset, 0])
             rpi_camera_holes(thickness = camera_mount_thickness);
+            
+            // left axis hole
+            translate([0, mount_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d=3, h=camera_mount_brim);
+            
+            // right axis hole with servo contact
+            translate([width - camera_mount_brim, mount_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d=4.75, h=camera_mount_brim);
+        }
+    }
+}
+
+module fisheye_tilt_gimbal_camera_mount()
+{
+    translate([-width/2, rear_spacing, -thickness])
+    difference()
+    {
+        union()
+        {
+            translate([0, 0, 0])
+            cube([width, length, thickness]);
+            
+
+        }
+        union()
+        {
+            // indentation
+            translate([camera_mount_brim, 0, camera_mount_thickness])
+            cube([width - (2 * camera_mount_brim), length - camera_mount_brim, thickness - camera_mount_thickness]);
+            
+            // camera mounting holes
+            translate([width / 2, mount_tilt_axis_y_offset, 0])
+            imx219_camera_holes(thickness = camera_mount_thickness);
             
             // left axis hole
             translate([0, mount_tilt_axis_y_offset, thickness / 2])
