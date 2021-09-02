@@ -71,6 +71,62 @@ module tilt_gimbal_base()
     }
 }
 
+module tilt_gimbal_base_standalone()
+{
+    handle_width = 45;
+    handle_length = 30;
+    
+    standalone_support_length = 10;
+    translate([0, -support_length, -thickness])
+    union()
+    {
+        // base support
+        translate([-base_translation_width, -standalone_support_length + 5, 0])
+        union()
+        {
+            cube([width + left_arm_width + right_arm_width + (2 * spacing), standalone_support_length, thickness]);
+            // handle
+            translate([base_translation_width - handle_width/2, -standalone_support_length + 5 - handle_length + 5, 0])
+            cube([handle_width, handle_length, thickness]);
+        }
+        
+        // left arm
+        difference()
+        {
+            translate([-base_translation_width, support_length, 0])
+            cube([left_arm_width, length + rear_spacing, thickness]);
+            
+            translate([-base_translation_width, base_tilt_axis_y_offset, thickness / 2])
+            rotate([0, 90, 0])
+            cylinder(d = 3, h = left_arm_width);
+        }
+        
+        // right arm with servo mount
+        difference()
+        {
+            union()
+            {
+                translate([right_arm_x_offset, support_length, 0])
+                cube([right_arm_width, length + rear_spacing, thickness]);
+            }
+            union()
+            {
+                // axis non-contact hole
+                translate([right_arm_x_offset, base_tilt_axis_y_offset, thickness / 2])
+                rotate([0, 90, 0])
+                cylinder(d = 5.5, h = right_arm_width);
+                
+                // servo void
+                translate([right_arm_x_offset - 1, base_tilt_axis_y_offset, thickness/2])
+                rotate([0, -90, 0])
+                micro_servo_void();
+            }
+        }
+        
+
+    }
+}
+
 module tilt_gimbal_camera_mount()
 {
     translate([-width/2, rear_spacing, -thickness])
@@ -141,5 +197,5 @@ module fisheye_tilt_gimbal_camera_mount()
     }
 }
 
-//tilt_gimbal_base();
+//tilt_gimbal_base_standalone();
 //tilt_gimbal_camera_mount();
