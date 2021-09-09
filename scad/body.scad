@@ -143,6 +143,7 @@ module body()
     }
 }
 
+rotate([0, 180, 90])
 body();
 
 //tilt_gimbal_camera_mount();
