@@ -2,34 +2,36 @@ include <../lib/rpi.scad>
 
 $fn=40;
 
-length = 90;
-width = 70;
-height = 33;
+length = 160;
+width = 80;
+height = 4;
 
 thickness = 1.5;
 
+module upper_deck_holes(thickness = 100, screw_hole_diameter = 1.75)
+{
+    square_side_length = 35;
+    
+    for( x_offset = [-square_side_length, square_side_length] )
+    {
+        for( y_offset = [-square_side_length, square_side_length] )
+        {
+            translate([x_offset, y_offset, 0])
+            cylinder( d = 3.5, h = height );
+        }
+    }
+}
 
 difference()
 {
+    translate([-width / 2, -length / 2, 0])
     union()
     {
-        translate([-width / 2 - thickness, -length / 2, 0])
-        cube([width + thickness*2, length, height + thickness]);
-        
-        
+        cube([width, length, height]);
     }
     union()
     {
-        translate([-width / 2 - thickness, -length / 2, 0])
-        translate([thickness, 0, 0])
-        cube([width, length, height]);
-        
-        translate([0, 0, height + thickness])
-        raspberry_pi_holes_centered(thickness = thickness, screw_hole_diameter = 3.5);
-        
-        translate([0, 0, height])
-        cylinder(d=10, h=thickness);
+        upper_deck_holes();
     }
 }
-translate([0, 0, height])
-raspberry_pi_standoffs(standoff_diameter = 6, screw_hole_diameter = 3.5);
+

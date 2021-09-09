@@ -1,7 +1,7 @@
 include <../lib/rpi.scad>
 include <../lib/rpi_tilt_gimbal_lib.scad>
 
-$fn = 60;
+$fn = 10;
 
 module stand()
 {
@@ -64,6 +64,20 @@ module power_distribution_board_holes(thickness = 100, screw_hole_diameter = 1.7
         {
             translate([x_offset, y_offset, -thickness])
             cylinder( d = screw_hole_diameter, h = thickness );
+        }
+    }
+}
+
+module upper_deck_holes(thickness = 100, screw_hole_diameter = 1.75)
+{
+    square_side_length = 35;
+    
+    for( x_offset = [-square_side_length, square_side_length] )
+    {
+        for( y_offset = [-square_side_length, square_side_length] )
+        {
+            translate([x_offset, y_offset, -thickness])
+            cylinder( d = 3.5, h = thickness );
         }
     }
 }
@@ -139,6 +153,9 @@ module body()
             
             translate([0, -143.5, 0])
             power_distribution_board_holes();
+            
+            translate([0, -85, 0])
+            upper_deck_holes();
         }
     }
 }
