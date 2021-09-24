@@ -2,16 +2,17 @@
 
 This is designed for a Navio2 + RPi flight controller and a power system similar to the [DJI Snail](https://www.dji.com/snail) with a 3S (11.1V) LiPo. It is a modified version of the drone found [on Thingiverse here](https://www.thingiverse.com/thing:2269010).
 
-It is particularly good for scenarios with potentially rough landings, as it is flexible enough to ragdoll.
+It is particularly good for scenarios with potentially rough landings, as it is flexible enough to ragdoll a bit, while being strong enough to fly nicely.
 
 Initialize:
+* Install OpenSCAD if you want to edit the source or re-generate files: `sudo apt-get install openscad`
 * Clone the repo to your computer.
 * Run the ./build.sh script (make sure you have OpenSCAD installed or else this step will obviously not work).
 
 Printing (drone with gimbal):
 * Print the drone body:`stl/body.stl`
-* Print the arms (but scale them up by a factor of 8): 4 x `Raspberry_Pi_Drone_/files/angled.stl`
-* Print the connector plates (but scale them up by a factor of 8): 2 x `Raspberry_Pi_Drone_/files/topplate.stl
+* Print the arms: 4 x `stl/arm.stl`
+* Print the connector plates: 2 x `stl/connector_plate.stl`
 * Print the camera mount: `stl/gimbal_camera_mount.stl`
 
 Assembly:
@@ -28,5 +29,5 @@ Installation:
 * Install the [power distribution board](https://www.dronetrest.com/uploads/db5290/original/2X/0/03304f2ce1f00f086263f404fa10f85d59372267.jpg) at the rear of the drone body with wood screws.
 * Install the Raspberry Pi camera module into the camera mount using M2 Allen head machine screws. (Be careful when tightening down - do not tighten too hard, and avoid touching the electronics on the rear of the camera module.) The lens of the camera fits into the square in the camera mount.
 * Place the camera mount into its place at the front of the drone body.
-* Insert the micro servo into its place at the front right of the drone body, press its head into the hole in camera mount, and install the servo with wood screws. Do not over-tighten.
+* Insert the micro servo into its place at the front right of the drone body, press its head into the hole in camera mount, and install the servo with wood screws. Do not over-tighten - you can easily strip the screw hole.
 * Install a 12mm M3 machine screw into the front left of the drone body while ensuring that the camera mount is locked onto the servo.
