@@ -67,6 +67,8 @@ Upper deck | 1 | `stl/upper_deck.stl` | <img src="png/upper_deck.png" alt="alt t
 * Tape the micro receiver to the outermost/rearmost side of the rear ESC mount, with the antennae facing down away from the propellers. Connect the receiver's SBus out pin to the Navio2's SBus in pin.
 * Plug the 433 MHz telemetry radio into one of the USB ports on the Raspberry Pi, and tape it to the top of the upper deck using electrical tape or double sided tape.
 * Tape the GPS antenna to the upper deck.
+
+## Flight Control Software Setup
 * Follow steps for installing the Emlid Raspbian OS on the Raspberry Pi and for setting up the flight control software.
 * Calibrate all sensors and other systems.
 * Ensure motors are spinning the correct way.
@@ -78,4 +80,4 @@ Upper deck | 1 | `stl/upper_deck.stl` | <img src="png/upper_deck.png" alt="alt t
 
 # Disclaimer: Add/subtract components, installation steps, etc. as needed, using common sense. Not using common sense is disqualifying.
 
-# Still need to find some solution for legs in the drone body (maybe 3d printing, but probably not a good idea...
+# Still need to find some solution for legs in the drone body (maybe 3d printing, but probably not a good idea...)
