@@ -21,7 +21,7 @@ Upper deck | 1 | `stl/upper_deck.stl` | <img src="png/upper_deck.png" alt="alt t
 
 ## Assembly:
 * Put one arm in each slot from the underside, angling them away from the center of the drone body.
-* Connect the arms by pressing tab from the connector plates into the holes in the arms and the corresponding holes in the body. (You may need a vice for this. Make sure to do it slowly in order not to break anything.)
+* Connect the arms by pressing tab from the connector plates into the holes in the arms and the corresponding holes in the body. (You may need a [vice](https://www.google.com/search?q=vice&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiJ9f6L45rzAhUGQUEAHXSoBQ8Q_AUoAXoECAEQAw&biw=1920&bih=981) for this. Make sure to do it slowly in order not to break anything.)
 * Drill a hole through the connector plate and put a short M3 bolt through it with a nut for security.
 * If using a snail propulsion system, you will need to increase the size of the slots in the arms for the required mounting screws. You can do this with a dremel or drill and a slightly larger bit. (This will eventually need to be fixed in the design itself, but is ok for now.)
 
@@ -78,6 +78,6 @@ Upper deck | 1 | `stl/upper_deck.stl` | <img src="png/upper_deck.png" alt="alt t
 * Ensure that the counterclockwise motors rev up when you yaw right, and vice versa.
 * Install the propellers.
 
-# Disclaimer: Add/subtract components, installation steps, etc. as needed, using common sense. Not using common sense is disqualifying.
+# Disclaimer: Add/subtract components, installation steps, etc. as needed, using common sense. Please use common sense.
 
 # Still need to find some solution for legs in the drone body (maybe 3d printing, but probably not a good idea...)
