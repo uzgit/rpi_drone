@@ -119,6 +119,20 @@ module leg_hole_clearance(thickness = 12)
     }
 }
 
+//module labels()
+//{
+//    linear_extrude_height = 5;
+////    translate([0, -50, linear_extrude_height-2])
+////    rotate([180,0,180])
+//    rotate([0,180,0])
+////    rotate([0,0,0])
+//    translate([0, -50, linear_extrude_height+5])
+//    linear_extrude(height = linear_extrude_height)
+//    {
+//        text("twetegwwergergaregradbdfv", size=3);
+//    }
+//}
+
 module body()
 {
     difference()
