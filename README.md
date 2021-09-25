@@ -71,7 +71,7 @@ Upper deck | 1 | `stl/upper_deck.stl` | <img src="png/upper_deck.png" alt="alt t
 ## Flight Control Software Setup
 * Follow steps for installing the Emlid Raspbian OS on the Raspberry Pi and for setting up the flight control software.
 * Calibrate all sensors and other systems.
-* Ensure motors are spinning the correct way.
+* Ensure motors are spinning the correct way. [ArduPilot motor layout.](https://ardupilot.org/copter/docs/connect-escs-and-motors.html) [PX4 motor layout](https://dev.px4.io/master/en/airframes/airframe_reference.html)
 * Ensure correct flight controller orientation using the HUD in some ground control station software such as [QGroundControl](https://docs.qgroundcontrol.com/master/en/getting_started/download_and_install.html).
 * Ensure that when you pitch forward, the back motors rev up, and that the front motors rev up when you pitch back.
 * Ensure that when you roll right, the left motors rev up, and that the left motors rev up when you roll left.
