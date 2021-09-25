@@ -14,6 +14,7 @@ Printing (drone with gimbal):
 * Print the arms: 4 x `stl/arm.stl`
 * Print the connector plates: 2 x `stl/connector_plate.stl`
 * Print the camera mount: `stl/gimbal_camera_mount.stl`
+* Print the upper deck: `stl/upper_deck.stl`
 
 Assembly:
 * Put one arm in each slot from the underside, angling them away from the center of the drone body.
