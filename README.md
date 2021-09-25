@@ -4,10 +4,10 @@ This is designed for a Navio2 + RPi flight controller and a power system similar
 
 It is particularly good for scenarios with potentially rough landings, as it is flexible enough to ragdoll a bit, while being strong enough to fly nicely.
 
-## Initialization:
-* Install OpenSCAD if you want to edit the source or re-generate files: `sudo apt-get install openscad`
+## Initialization (if you want to edit or re-generate files):
+* Install OpenSCAD: `sudo apt-get install openscad`
 * Clone the repo to your computer.
-* Run the ./build.sh script (make sure you have OpenSCAD installed or else this step will obviously not work).
+* Run the `./build.sh` script (make sure you have OpenSCAD installed or else this step will obviously not work).
 
 ## Printing (drone with gimbal):
 
